@@ -34,7 +34,9 @@
     src: "{{ munin_plugin_src_path }}{{ item.plugin | default( item.name ) }}"
     state: link
   with_items: "{{ munin_node_plugins }}"
-  notify: restart munin-node
-
+  
+- name: Restart Munin
+  service: name=munin-node state=restarted
+  
 - name: Ensure munin-node is running.
   service: name=munin-node state=started enabled=yes
